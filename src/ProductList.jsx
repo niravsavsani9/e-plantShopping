@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 function ProductList() {
   const [showCart, setShowCart] = useState(false);
   const [disabledProducts, setDisabledProducts] = useState([]);
+  const cart = useSelector((state) => state.cart.items);
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
   const [addedToCart, setAddedToCart] = useState({});
   const dispatch = useDispatch();
@@ -289,6 +290,7 @@ function ProductList() {
 
   const handleAddToCart = (product) => {
     dispatch(addItem(product));
+
     setDisabledProducts([...disabledProducts, product.name]);
     setAddedToCart((prevState) => ({
       ...prevState,
