@@ -22,7 +22,7 @@ export const CartSlice = createSlice({
       const { name, quantity } = action.payload;
       const itemToUpdate = state.find((item) => item.name === name);
       if (itemToUpdate) {
-        itemToUpdate.quantity = action.payload.quantity;
+        itemToUpdate.quantity = quantity;
       }
     },
 

@@ -7,7 +7,6 @@ import React, { useState } from "react";
 const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
-  const [showCart, setShowCart] = useState(false);
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
@@ -19,7 +18,7 @@ const CartItem = ({ onContinueShopping }) => {
   };
 
   const handleContinueShopping = (e) => {
-    onContinueShopping();
+    onContinueShopping(e);
   };
 
   const handleCheckoutShopping = (e) => {
@@ -28,6 +27,7 @@ const CartItem = ({ onContinueShopping }) => {
 
   const handleIncrement = (item) => {
     dispatch(addItem(item));
+    dispatch(updateQuantity(item));
   };
 
   const handleDecrement = (item) => {
@@ -36,14 +36,13 @@ const CartItem = ({ onContinueShopping }) => {
 
   const handleRemove = (item) => {
     dispatch(removeItem(item));
+    dispatch(updateQuantity(item));
   };
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
     let totalCost = 0;
-    cart.forEach((item) => {
-      totalCost += item.quantity;
-    });
+    totalCost = item.cost * item.quantity;
     return totalCost;
   };
 
